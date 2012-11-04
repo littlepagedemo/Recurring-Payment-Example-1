@@ -259,7 +259,12 @@ include_once("config.php");
 		$nvpstr = $nvpstr . "&L_BILLINGTYPEn=" . urlencode("$billingtype");
 		$nvpstr = $nvpstr . "&L_BILLINGAGREEMENTDESCRIPTIONn=" . urlencode($padata["desc"]);
 
-
+		// display nvpstr
+		$nvparr = preg_split('[&]', 'METHOD=DoExpressCheckoutPayment'.$nvpstr);
+        $resRecurrData = reformat_arr($nvparr);
+        echo '<p style="font-size:10px;padding:2%"><b>API CAll</b><br>'.$resRecurrData.'</p>';
+        
+        
 		 /* Make the call to PayPal to finalize payment
 		    If an error occured, show the resulting errors
 		*/
@@ -382,7 +387,13 @@ include_once("config.php");
 		
 		$nvpstr.="&IPADDRESS=" . $_SERVER['REMOTE_ADDR'];
 
-		
+
+		// display nvpstr
+		$nvparr = preg_split('[&]', 'METHOD=CreateRecurringPaymentsProfile'.$nvpstr);
+        $resRecurrData = reformat_arr($nvparr);
+        echo '<p style="font-size:10px;padding:2%"><b>API CAll</b><br>'.$resRecurrData.'</p>';
+                	
+                		
 		//'---------------------------------------------------------------------------
 		//' Make the API call and store the results in an array.  
 		//'	If the call was a success, show the authorization details, and provide
@@ -434,9 +445,9 @@ include_once("config.php");
 
 
 		//var_dump($nvpreq);
-		$nvparr = deformatNVP($nvpreq);
-		$resRecurrData = reformat_arr($nvparr); 
-		echo '<p style="font-size:10px;padding:2%"><b>API CAll</b>'.$resRecurrData.'</p>';
+		//$nvparr = deformatNVP($nvpreq);
+		//$resRecurrData = reformat_arr($nvparr); 
+		//echo '<p style="font-size:10px;padding:2%"><b>API CAll</b>'.$resRecurrData.'</p>';
 		
 		
 		//setting the nvpreq as POST FIELD to curl
